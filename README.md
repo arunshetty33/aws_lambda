@@ -1,3 +1,3 @@
 # aws_lambda
 
-This script will list all the detached volumes and it will send email using sns arn
+This script will list all aws detached volumes and will send email using sns.
