@@ -17,7 +17,7 @@ def apply_tag():
 
         mytags = [{"Key": "test_tag", "Value": "working"},
                   {"Key": "email_id", "Value": "arunshetty33@gmail.com"},
-                  {"Key": "hg:identity:software", "Value": "kubernetes"}]
+                  {"Key": "Software", "Value": "kubernetes"}]
 
         for reservation in response["Reservations"]:
             for instance in reservation["Instances"]:
