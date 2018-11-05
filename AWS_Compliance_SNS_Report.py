@@ -33,4 +33,8 @@ def lambda_handler(event, context):
         SNS_CLIENT.publish(TopicArn=SNS_TOPIC, Message=sns_message, Subject=SNS_SUBJECT)
 
     else:
+<<<<<<< HEAD
         print('No noncompliant resources detected.')
+=======
+        print('No noncompliant resources detected.')
+>>>>>>> a29664c900cbbaadbe71ae359bb6562f42ed949a
