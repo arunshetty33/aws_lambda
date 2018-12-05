@@ -12,7 +12,7 @@ MY_RULE = "Windows-Patch-Compliance"
 
 # AWS SNS Settings
 SNS_CLIENT = boto3.client('sns')
-SNS_TOPIC = 'arn:aws:sns:us-west-2:666678657097:AWS-HEALTH-STATUS'
+SNS_TOPIC = 'arn:aws:sns:us-west-2:account-ID:TopicName'
 SNS_SUBJECT = 'SBX Patch Compliance Update'
 
 def lambda_handler(event, context):
@@ -21,5 +21,12 @@ def lambda_handler(event, context):
     resource_data = {}
     if len(non_compliant_detail['InstancePatchStates']) >= 0:
         for result in non_compliant_detail['InstancePatchStates']:
-            resource_data[result['InstanceId']] = 'PatchGroup: ' + result['PatchGroup'] + ', Patch-InstalledCount: ' + str(result['InstalledCount']) + ', Patch-MissingCount: ' + str(result['MissingCount']) + ', Patch-FailedCount: ' + str(result['FailedCount']) + ', Patch-InstalledCount: ' + str(result['InstalledCount']) + ', Time: ' + str(result['OperationStartTime']) 
-    return resource_data
+#            resource_data[result['InstanceId']] = 'PatchGroup: ' + result['PatchGroup'] + ', Patch-InstalledCount: ' + str(result['InstalledCount']) + ', Patch-MissingCount: ' + str(result['MissingCount']) + ', Patch-FailedCount: ' + str(result['FailedCount']) + ', Patch-InstalledCount: ' + str(result['InstalledCount']) + ', Time: ' + str(result['OperationStartTime']) 
+            resource_data[result['InstanceId']] = 'PatchGroup: ' + result['PatchGroup'] + ', Patch-InstalledCount: ' + str(result['InstalledCount']) + ', Patch-MissingCount: ' + str(result['MissingCount']) + ', Patch-FailedCount: ' + str(result['FailedCount']) + ', Patch-InstalledCount: ' + str(result['InstalledCount']) + ', Time: ' + str(result['OperationStartTime']) + "\n"
+        
+        sns_message = 'AWS Config Compliance Update\n\n' \
+     		    	+ 'The following resource(s) are not compliant:\n' \
+     		    	+  str(resource_data)
+        SNS_CLIENT.publish(TopicArn=SNS_TOPIC, Message=sns_message, Subject=SNS_SUBJECT)
+        return resource_data
+    
