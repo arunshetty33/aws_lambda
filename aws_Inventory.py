@@ -184,8 +184,8 @@ def lambda_handler(event, context):
             csv_file.write("%s,%s,%s,%s\n" % (LoadBalancerName,DNSName,CanonicalHostedZoneName,CanonicalHostedZoneNameID))
             csv_file.flush()
 
-    ses_user = "AKIAIPCMTXRJOZDKJNHA"
-    ses_pwd = "AhSU/T0qAifojxq42hVf9okLcXCwiGAlfGXkyOZ0SCI0"
+    ses_user = ""
+    ses_pwd = ""
 
     def mail(fromadd,to, subject, text, attach):
        msg = MIMEMultipart()
